@@ -1,5 +1,5 @@
 from flask.json import dump
-from marshmallow import Schema, fields, validate
+from marshmallow import Schema, fields, validate, post_dump
 
 from .pin_schema import PinSchema
 
@@ -29,10 +29,19 @@ class UserSchema(Schema):
         ]
     )
 
+    shares = fields.Nested(PinSchema, many=True, dump_only=True)
+
     my_pins = fields.Nested(PinSchema, many=True, dump_only=True)
+
+    all_pins = fields.Nested(PinSchema, many=True, dump_only=True)
 
     is_active = fields.Boolean()
 
     created_at = fields.DateTime(dump_only=True)
 
     modified_at = fields.DateTime(dump_only=True)
+
+    @post_dump(pass_many=True)
+    def wrap(self, data, many):
+        data['all_pins'] = [*data['my_pins'], *data['shares']]
+        return data

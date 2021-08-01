@@ -1,5 +1,5 @@
 from flask.json import dump
-from marshmallow import Schema, fields, validate
+from marshmallow import Schema, fields, validate, pre_dump
 
 
 class PinUserInfoSchema(Schema):
@@ -71,5 +71,14 @@ class PinSchema(Schema):
 
     modified_at = fields.DateTime(dump_only=True)
 
-
+    @pre_dump(pass_many=False)
+    def wrap(self, data, many):
+        data.shared = False
+        try:
+            if (data.pin):
+                data = data.pin
+                data.shared = True
+        except:
+            pass
+        return data
 

@@ -116,4 +116,33 @@ class UserLoginResource(Resource):
             },
             status_code=200
         )
+
+
+class UserResource(Resource):
+    """ User Resource
+        GET /user_info - Get user details and pins (shared and created)
+    """
+
+    @authorize_app_access
+    @validate_user()
+    def get(self):
+        """ Get user info """
+        _user = g.user
+
+        # create user schema and validate fetched data
+        user_schema = UserSchema()
+
+        try:
+            _fetched_data = user_schema.dump(_user)
+        except ValidationError as err:
+            return pin_errors(err.messages, 400)
+
+        # return success message
+        return pin_success(
+            message='User info fetched successfully',
+            response_data={
+                "user": _fetched_data
+            },
+            status_code=200
+        )
         
