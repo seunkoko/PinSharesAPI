@@ -4,5 +4,5 @@ from .user_resource import (
     UserListResource
 )
 from .pin_resource import (
-    PinListResource, PinResource
+    PinListResource, PinResource, SharePinResource
 )
