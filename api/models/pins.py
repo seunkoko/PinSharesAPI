@@ -20,6 +20,13 @@ class Pins(ModelMixin):
     name = db.Column(db.String, nullable=False)
     latLng = db.Column(postgresql.ARRAY(db.Float()), nullable=False)
 
+    shared_pin = db.relationship(
+            "PinShares", 
+            backref="pin", 
+            order_by="PinShares.created_at.desc()",
+            lazy=True
+        )
+
     is_active = db.Column(db.Boolean, default=True, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     modified_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
