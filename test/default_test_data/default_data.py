@@ -5,13 +5,13 @@ from api.models import (
 )
 
 def create_default_users():
-    user1 = Users(name="user1")
+    user1 = Users(username="user1")
     user1.set_password('password1')
 
-    user2 = Users(name="user2")
+    user2 = Users(username="user2")
     user2.set_password('password2')
 
-    user3 = Users(name="user3")
+    user3 = Users(username="user3")
     user3.set_password('password3')
 
     user1.save()
@@ -19,9 +19,9 @@ def create_default_users():
     user3.save()
 
 def create_default_pins():
-    user1 = Users.find_first(**{"name": "user1"})
-    user2 = Users.find_first(**{"name": "user2"})
-    user3 = Users.find_first(**{"name": "user3"})
+    user1 = Users.find_first(**{"username": "user1"})
+    user2 = Users.find_first(**{"username": "user2"})
+    user3 = Users.find_first(**{"username": "user3"})
 
     pin1 = Pins(
         user_id=user1.id,
