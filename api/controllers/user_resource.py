@@ -169,9 +169,9 @@ class UserListResource(Resource):
 
         # return success message
         return pin_success(
-            message='User info fetched successfully',
+            message='Users fetched successfully',
             response_data={
-                "user": _fetched_users
+                "users": _fetched_users
             },
             status_code=200
         )

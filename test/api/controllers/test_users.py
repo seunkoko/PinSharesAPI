@@ -227,3 +227,48 @@ class UserInfoTestCase(BaseTestCase):
         self.assertTrue(response_data['data']['user']['all_pins'])
         self.assertEqual(response_data['data']['user']['shares'], [])
         self.assert200(response)
+
+
+class UserListTestCase(BaseTestCase):
+    """ Test All Users """
+
+    def setUp(self):
+        db.drop_all()
+        db.create_all()
+
+        self.create_default_data()
+    
+    def test_get_user_info_invalid_token(self):
+        """ Test /all_users
+            - Get all users with valid token
+        """
+        response = self.client.get(
+            'all_users',
+            headers={'authorization': 'faketoken'},
+            content_type='application/json'
+        )
+        response_data = json.loads(response.data)
+
+        self.assertEqual(response_data['data']['message'],
+            'Unauthorized. The authorization token supplied is invalid')
+        self.assertEqual(response_data['status'], 'fail')
+        self.assert401(response)
+
+    def test_fetch_users_successful(self):
+        """ Test /all_users
+            - Get all users with valid token
+        """
+        self.login('user1', 'password1')
+        response = self.client.get(
+            'all_users',
+            headers={'authorization': self.authorization_token},
+            content_type='application/json'
+        )
+        response_data = json.loads(response.data)
+
+        self.assertEqual(response_data['data']['message'],
+            'Users fetched successfully')
+        self.assertEqual(response_data['status'], 'success')
+        self.assertTrue(response_data['data']['users'])
+        self.assertEqual(len(response_data['data']['users']), 2)
+        self.assert200(response)
