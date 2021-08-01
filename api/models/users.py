@@ -1,5 +1,6 @@
 from datetime import datetime
 from enum import unique
+from sqlalchemy.orm import backref
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -16,6 +17,13 @@ class Users(ModelMixin):
 
     username = db.Column(db.String, nullable=False, unique=True) # unique
     password_hash = db.Column(db.String(128), nullable=False)
+
+    my_pins = db.relationship(
+        "Pins",
+        backref="user",
+        order_by="Pins.created_at.desc()",
+        lazy=True
+    )
 
     is_active = db.Column(db.Boolean, default=True, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
