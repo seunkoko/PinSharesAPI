@@ -110,7 +110,7 @@ class UserLoginResource(Resource):
 
         # return success message
         return pin_success(
-            message='User login successfully',
+            message='User login successful',
             response_data={
                 "token": str(_token)
             },
