@@ -70,4 +70,50 @@ class UserSignUpResource(Resource):
             },
             status_code=201
         )
+
+
+class UserLoginResource(Resource):
+    """ User Login Resource
+        POST /login
+    """
+
+    @validate_request()
+    def post(self):
+        """ Logs in users """
+        # get data from request body
+        _data = request.get_json()
+
+        # create user schema and validate data
+        user_schema = UserSchema()
+        _validated_data = None
+
+        try:
+            _validated_data = user_schema.load(_data)
+        except ValidationError as err:
+            return pin_errors(err.messages, 400)
+
+        # get user
+        _user = Users.find_first(**{
+            'username': _validated_data['username'].lower()
+        })
+
+        # handle user not found
+        if not _user:
+            return pin_errors('Invalid username or password', 400)
+        
+        # confirm user password
+        if not _user.check_password(_validated_data['password']):
+            return pin_errors('Invalid username or password', 400)
+
+        # generate authorization token
+        _token = generate_authorization_token(_user.id)
+
+        # return success message
+        return pin_success(
+            message='User login successfully',
+            response_data={
+                "token": str(_token)
+            },
+            status_code=200
+        )
         
