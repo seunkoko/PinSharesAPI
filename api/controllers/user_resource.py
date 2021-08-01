@@ -1,3 +1,4 @@
+from api.schema.pin_schema import PinUserInfoSchema
 from api.schema import user_schema
 import os
 import datetime
@@ -10,7 +11,7 @@ from ..models import (
     Users
 )
 from ..schema import (
-    UserSchema
+    UserSchema, PinUserInfoSchema
 )
 from ..auth import (
     authorize_app_access,
@@ -142,6 +143,35 @@ class UserResource(Resource):
             message='User info fetched successfully',
             response_data={
                 "user": _fetched_data
+            },
+            status_code=200
+        )
+
+
+class UserListResource(Resource):
+    """ UserList Resource
+        GET /all_users - Get all users excluding current user
+    """
+
+    @authorize_app_access
+    @validate_user()
+    def get(self):
+        # get all users excluding current user
+        users = Users.query.filter(Users.id!=g.current_user_id)
+
+        # create user schema and validate fetched users
+        user_schema = PinUserInfoSchema(many=True)
+
+        try:
+            _fetched_users = user_schema.dump(users)
+        except ValidationError as err:
+            return pin_errors(err.messages, 400)
+
+        # return success message
+        return pin_success(
+            message='User info fetched successfully',
+            response_data={
+                "user": _fetched_users
             },
             status_code=200
         )
