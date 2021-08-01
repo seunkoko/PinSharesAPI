@@ -9,7 +9,9 @@ from . import db
 
 
 class Users(ModelMixin):
-    """ Users Table """
+    """ Users Table
+        - Contains all Users
+    """
 
     __tablename__ = 'users'
 

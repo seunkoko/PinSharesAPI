@@ -6,7 +6,9 @@ from . import db, Users
 
 
 class Pins(ModelMixin):
-    """ Pins Table """
+    """ Pins Table
+        - Contains all Pins
+    """
 
     __tablename__ = 'pins'
 

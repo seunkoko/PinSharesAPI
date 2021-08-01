@@ -9,6 +9,7 @@ from .helper import PushID
 # import models
 from .users import Users
 from .pins import Pins
+from .pin_shares import PinShares
 
 def fancy_id_generator(mapper, connection, target):
     '''
@@ -22,7 +23,8 @@ def fancy_id_generator(mapper, connection, target):
 tables = [
     # put in models here
     Users,
-    Pins
+    Pins,
+    PinShares
 ]
 
 for table in tables:
