@@ -7,6 +7,7 @@ db = SQLAlchemy()
 from .helper import PushID
 
 # import models
+from .users import Users
 
 def fancy_id_generator(mapper, connection, target):
     '''
@@ -19,6 +20,7 @@ def fancy_id_generator(mapper, connection, target):
 # "before_insert" event
 tables = [
     # put in models here
+    Users
 ]
 
 for table in tables:
