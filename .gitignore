@@ -12,6 +12,7 @@ __pycache__/
 .pytest_cache/
 
 # Flask stuff:
+*.log
 instance/
 .webassets-cache
 
