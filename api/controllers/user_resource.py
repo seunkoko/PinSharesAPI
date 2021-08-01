@@ -156,6 +156,7 @@ class UserListResource(Resource):
     @authorize_app_access
     @validate_user()
     def get(self):
+        """ Get all users """
         # get all users excluding current user
         users = Users.query.filter(Users.id!=g.current_user_id)
 
