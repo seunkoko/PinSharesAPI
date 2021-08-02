@@ -2,7 +2,8 @@
 
 API for Map location sharing website. Find out more info [here](https://github.com/seunkoko/PinShares).
 
-Hosted on heroku [here](https://pin-shares-api.herokuapp.com/)
+APP hosted on netlify [here](https://pinshares.netlify.app)
+API hosted on heroku [here](https://pin-shares-api.herokuapp.com/)
 
 ### Features
 ---
@@ -19,6 +20,12 @@ Hosted on heroku [here](https://pin-shares-api.herokuapp.com/)
 Users are authorized by using JSON web token (JWT).
 By generating a token on registration and login, API endpoints are protected from unauthorized access.
 Requests to protected routes are validated using the generated token.
+
+
+### Database Schema
+Image of the Database Schema
+![img](https://raw.githubusercontent.com/seunkoko/PinSharesAPI/documentation/images/databaseSchema.png)
+
 
 ### Endpoints
 ---
