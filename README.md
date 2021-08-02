@@ -24,7 +24,7 @@ Requests to protected routes are validated using the generated token.
 
 ### Database Schema
 Image of the Database Schema
-![img](https://raw.githubusercontent.com/seunkoko/PinSharesAPI/documentation/images/databaseSchema.png)
+![img](https://raw.githubusercontent.com/seunkoko/PinSharesAPI/main/documentation/databaseSchema.png)
 
 
 ### Endpoints
