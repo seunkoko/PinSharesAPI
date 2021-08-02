@@ -83,6 +83,11 @@ POST /share_pin/:pin_id  | Share pin | *token, body [user_ids (array)]
 
 ### Future Futures
 ---
--
+- Users can update their profiles
+- Users can delete their profiles
+- Users can signup with emails for more efficient notifications/communications
+- Enable Push notification especially with pin sharing
+- Dedicated routes for getting user pins
+- Enable search pins for easy access to specific pins
 
 Copyright (c) 2021 Oluwaseun Owonikoko
